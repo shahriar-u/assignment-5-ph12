@@ -40,8 +40,23 @@ for (let i = 0; i < callBtns.length; i++) {
         availableCoin -= 20;
         coinCountTotal.innerText = availableCoin;
 
+        // challenge part to add current time since clicked to call
+
+        const now = new Date();
+        const timeString = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+
         const li = document.createElement("li");
-        li.innerHTML = `<b>${serviceName}</b> - <br> ${serviceNumber}`;
+        li.innerHTML = `
+            <div class="flex items-center">
+                <div class="text-lg">
+                <b>${serviceName}</b><br>
+                ${serviceNumber}
+                </div>
+                <div class="text-sm text-gray-500">
+                    ${timeString}
+                </div>
+            </div>
+        `;
         callList.appendChild(li);
 
     });
@@ -51,5 +66,23 @@ clearListBtn.addEventListener("click", () => {
     callList.innerHTML = "";
 });
 
-// call history 
+// challenge part
 
+const copyCountElement = document.getElementById("copy-count");
+let copyCount = 0;
+
+const copyBtns = document.querySelectorAll(".copy-btn");
+
+for (let i = 0; i < copyBtns.length; i++) {
+    copyBtns[i].addEventListener("click", () => {
+        const cardBody = copyBtns[i].closest(".card-body");
+        const serviceNumber = cardBody.querySelector(".service-number").innerText;
+
+        navigator.clipboard.writeText(serviceNumber);
+
+        alert(`Copied: ${serviceNumber}`);
+
+        copyCount++;
+        copyCountElement.innerText = copyCount;
+    });
+}
