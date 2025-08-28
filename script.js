@@ -47,7 +47,7 @@ for (let i = 0; i < callBtns.length; i++) {
 
         const li = document.createElement("li");
         li.innerHTML = `
-            <div class="flex items-center">
+            <div class="flex justify-between items-center">
                 <div class="text-lg">
                 <b>${serviceName}</b><br>
                 ${serviceNumber}
